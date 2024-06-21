@@ -1,18 +1,12 @@
-import { useState, useCallback, useRef } from "react";
+import { useRef } from "react";
 
-export default function DebounceInput({ onChange, delay }) {
+export default function DebounceInput({ onChange, value, delay }) {
 	const timeID = useRef(null);
 
-	  const fetchPokemon = useCallback((name) => {
-		fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-		.then((response) => response.json())
-		.then((data) => onChange(data))
-		.catch((error) => console.error(error));
-	}, []);
-	const handleChange = (v) => {
+	const handleChange = (val) => {
 		clearInterval(timeID.current);
 		timeID.current = setTimeout(() => {
-			fetchPokemon(v)
+			onChange(val)
 		}, delay);
 	};
     return (
