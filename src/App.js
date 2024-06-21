@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import useDebounce from "./hooks/useDebounce";
 export default function App() {
-  const [name, setName] = useState("");
   const [pokemon, setPokemon] = useState(null);
 
   const fetchPokemon = useCallback((name) => {
@@ -11,11 +10,10 @@ export default function App() {
       .catch((error) => console.error(error));
   }, []);
 
-  const debounceCatchPokemon = useDebounce(fetchPokemon, 1000);
+  const debounceCatchPokemon = useDebounce(fetchPokemon, 300);
   
   const handleInputChange = (event) => {
     const value = event.target.value;
-    setName(value);
     debounceCatchPokemon(value)
   }
 
